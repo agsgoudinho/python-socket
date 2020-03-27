@@ -28,9 +28,11 @@ while True:
 
         while len(received_data) < expected_data_size:
             received_data += connection.recv(4).decode()
-            print(received_data)
+        print(received_data)
 
-        #
+        if received_data.lower() == 'see ya':
+            break
+
         time.sleep(2)
 
         resp = input("servidor: ").strip()
@@ -38,7 +40,9 @@ while True:
         connection.sendall(str(send_data_size).zfill(4).encode())
         connection.sendall(resp.encode())
 
-        if received_data == 'see ya':
-            connection.close()
+        if resp.lower() == "see ya":
+            break
 
-    connection.close()
+    break
+
+connection.close()
